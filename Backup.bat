@@ -1,0 +1,1 @@
+rar a -ag -r -x*\.vscode -x*\.idea -x*\.dart_tool -x*\build* -x*\.history -x.git -x*.lock -x*.log -x*.rar -x*.zip flutter_chatui..rar
