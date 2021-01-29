@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chatui/pages/chat_page.dart';
+import 'package:flutter_chatui/pages/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        home: Center(
+        /*home: Center(
           child: Text(
             'Flutter Chat UI',
             // 设置字体风格
@@ -20,7 +22,11 @@ class MyApp extends StatelessWidget {
               color: Colors.white,
             )
           )
-        )
-      );
+        ),*/
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomePage(),
+          '/chat': (context) => ChatPage(),
+        });
   }
 }
