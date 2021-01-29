@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chatui/widgets/category_selector.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -12,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /* 标题栏 */
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.menu),
@@ -34,6 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {},
           ),
         ],
+      ),
+      body: Column(
+        children:<Widget>[
+          CategorySelector(), //类别选择器
+        ]
       ),
     );
   }
