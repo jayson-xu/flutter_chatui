@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chatui/widgets/category_selector.dart';
 import 'package:flutter_chatui/widgets/favorite_contacts.dart';
+import 'package:flutter_chatui/widgets/recent_chats.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -57,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // 栏布局
               child: Column(children: <Widget>[
                 FavoriteContacts(), //收藏联系人
+                RecentChats(), //最近会话列表
               ])),
         ),
       ]),
