@@ -13,13 +13,15 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   _buildMessage(Message message, bool isMe) {
-    return Container(
+    final Container msg = Container(
       // 自已发送的消息靠右显示，接收到的消息靠左显示
       margin: isMe
           ? EdgeInsets.only(top: 8, bottom: 8, left: 80)
-          : EdgeInsets.only(top: 8, bottom: 8, right: 80),
+          : EdgeInsets.only(top: 8, bottom: 8),
       // 每句对话文本增加内边距，不然挤一块了
       padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+      // 收窄显示消息文本的容器的宽度，不然会出现黄黑警告条
+      width: MediaQuery.of(context).size.width * 0.75,
       decoration: BoxDecoration(
         // 容器的颜色，也就是背景。注意：有装饰器的时候颜色不能直接设置在Container上
         color: isMe ? Theme.of(context).accentColor : Color(0xFFFFEFEE),
@@ -56,6 +58,24 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
+    );
+    if (isMe) {
+      return msg;
+    }
+    return Row(
+      children: [
+        msg,
+        IconButton(
+          icon: message.isLiked
+              ? Icon(Icons.favorite)
+              : Icon(Icons.favorite_border),
+          iconSize: 30,
+          color: message.isLiked
+              ? Theme.of(context).primaryColor
+              : Colors.blueGrey,
+          onPressed: () {},
+        ),
+      ],
     );
   }
 
