@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chatui/pages/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,18 +10,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        home: Center(
-          child: Text(
-            'Flutter Chat UI',
-            // 设置字体风格
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            )
-          )
-        )
-      );
+      title: 'Flutter Demo',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      debugShowCheckedModeBanner: false,
+      home: HomePage(),
+    );
   }
 }
