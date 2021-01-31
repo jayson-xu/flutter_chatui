@@ -91,7 +91,24 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               return Container(
                 padding:
                     EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
-                child: Text(messages[index].messageContent),
+                child: Align(
+                  alignment: (messages[index].messageType == "receiver"
+                      ? Alignment.topLeft
+                      : Alignment.topRight),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: (messages[index].messageType == "receiver"
+                          ? Colors.grey.shade200
+                          : Colors.blue[200]),
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Text(
+                      messages[index].messageContent,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ),
               );
             },
           ),
