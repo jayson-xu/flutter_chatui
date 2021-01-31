@@ -12,7 +12,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  _buildMessage(Message message, bool isMe) {
+  _buildMessage(Message message, bool isMe, int index) {
     final Container msg = Container(
       // 自已发送的消息靠右显示，接收到的消息靠左显示
       margin: isMe
@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            message.time,
+            message.time + ' #${index+1}',
             style: TextStyle(
               color: Colors.blueGrey,
               fontSize: 16,
@@ -79,10 +79,39 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
+  _buildMessageComposer() {
+    return Container(
+      color: Colors.white,
+      child: Row(
+        children: [
+          IconButton(
+            icon: Icon(Icons.photo),
+            iconSize: 25,
+            color: Theme.of(context).primaryColor,
+            onPressed: () {},
+          ),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'send a message...',
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.send),
+            iconSize: 25,
+            color: Theme.of(context).primaryColor,
+            onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Message> mockMessages = List<Message>();
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 100; i++) {
       mockMessages.addAll(messages);
     }
     return Scaffold(
@@ -105,37 +134,42 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  //圆角
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+      body: GestureDetector(
+        // 点击时失去焦点，否则软键盘将会一直显示
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    //圆角
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
                 ),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-                child: ListView.builder(
-                  reverse: true, // 因为示例消息是越近的消息排得越前，所以这里逆序
-                  padding: EdgeInsets.only(top: 15),
-                  itemCount: mockMessages.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final Message message = mockMessages[index];
-                    final isMe = message.sender.id == currentUser.id;
-                    return _buildMessage(message, isMe);
-                  },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  child: ListView.builder(
+                    //reverse: true, // 因为示例消息是越近的消息排得越前，所以这里逆序
+                    padding: EdgeInsets.only(top: 15),
+                    itemCount: mockMessages.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final Message message = mockMessages[index];
+                      final isMe = message.sender.id == currentUser.id;
+                      return _buildMessage(message, isMe, index);
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+            _buildMessageComposer(),
+          ],
+        ),
       ),
     );
   }
